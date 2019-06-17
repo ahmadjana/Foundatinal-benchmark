@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: cz.cvut.kbss.jopa:jopa-impl:0.10.7">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/cz/cvut/kbss/jopa/jopa-impl/0.10.7/jopa-impl-0.10.7.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/cz/cvut/kbss/jopa/jopa-impl/0.10.7/jopa-impl-0.10.7-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/cz/cvut/kbss/jopa/jopa-impl/0.10.7/jopa-impl-0.10.7-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
