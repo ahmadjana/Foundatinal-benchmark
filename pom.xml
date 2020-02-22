@@ -47,6 +47,16 @@
             <artifactId>commons-logging</artifactId>
             <version>1.2</version>
         </dependency>
+        <dependency>
+            <groupId>it.cnr.istc</groupId>
+            <artifactId>stlab.csv2rdf</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>it.cnr.istc</groupId>
+            <artifactId>stlab.csv2rdf</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

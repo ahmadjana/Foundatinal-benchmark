@@ -7,7 +7,7 @@ public class Constants {
     /**
      * Number of items of one kind to use in one round.
      */
-    public static final int ITEM_COUNT = 700;
+    public static final int ITEM_COUNT = 100;
 
     public static final int MAX_SEVERITY = 1;//10
 
@@ -37,5 +37,7 @@ public class Constants {
                     URI.create("http://onto.fel.cvut.cz/ontologies/stamp/riskEvent-3.4.0.2/vl-a-430/v-100"),
                     URI.create("http://onto.fel.cvut.cz/ontologies/stamp/riskEvent-3.4.0.2/vl-a-430/v-101"),
                     URI.create("http://onto.fel.cvut.cz/ontologies/stamp/riskEvent-3.4.0.2/vl-a-430/v-102"),
-                    URI.create("http://onto.fel.cvut.cz/ontologies/stamp/riskEvent-3.4.0.2/vl-a-430/v-103")};
+                    URI.create("http://onto.fel.cvut.cz/ontologies/stamp/riskEvent-3.4.0.2/vl-a-430/v-103"),
+                    URI.create("http://onto.fel.cvut.cz/ontologies/stamp/riskEvent-3.4.0.2/vl-a-430/v-104"),
+                    URI.create("http://onto.fel.cvut.cz/ontologies/stamp/riskEvent-3.4.0.2/vl-a-430/v-105")};
 }

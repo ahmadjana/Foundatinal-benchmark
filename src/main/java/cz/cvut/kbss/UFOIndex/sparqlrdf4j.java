@@ -1,7 +1,7 @@
 package cz.cvut.kbss.UFOIndex;
+
 import org.apache.log4j.Logger;
 import org.eclipse.rdf4j.model.Literal;
-import org.eclipse.rdf4j.model.Value;
 import org.eclipse.rdf4j.query.BindingSet;
 import org.eclipse.rdf4j.query.QueryLanguage;
 import org.eclipse.rdf4j.query.TupleQuery;
@@ -16,8 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class sparqltests {
+public class sparqlrdf4j {
     protected Repository repository;
 
     protected RepositoryConnection connection;
@@ -26,20 +25,15 @@ public class sparqltests {
             throws IOException
     { Logger logger = Logger.getLogger(sparqltests.class);
         String sesameServer = "http://localhost:8080/rdf4j-server";
-   //    String sesameServer = "http://localhost:7200";
-      //  String sesameServer = "http://localhost:3030";
-        //
-        String repositoryID = "aviation-safety";
-       //
-        //String repositoryID = "ufomil";
-       // String repositoryID = "ufo5";
 
+        //String repositoryID = "aviation-safety";
+        String repositoryID = "generate";
         try {
             //  String serverUrl = "http://localhost:8080/openrdf-sesame";
             // RemoteRepositoryManager manager = new RemoteRepositoryManager(sesameServer);
             //manager.initialize();
             logger.info ("Running query jana1");
-            Repository myRepository = new HTTPRepository (sesameServer, repositoryID);
+            Repository myRepository = new HTTPRepository(sesameServer, repositoryID);
             logger.info ("Running query jana1");
             myRepository.initialize ();
 
@@ -57,21 +51,19 @@ public class sparqltests {
                     "{ ?subject ?predicate ?object\n" +
                     "}" ;
 //                    ;
-            String queryString = "PREFIX search:<"+ LuceneSailSchema.NAMESPACE+"> \n" +
+            String queryString8 = "PREFIX search:<"+ LuceneSailSchema.NAMESPACE+"> \n" +
                     "PREFIX t: <http://onto.fel.cvut.cz/ontologies/aviation-safety/>"+
                     "PREFIX u: <http://onto.fel.cvut.cz/ontologies/ufo/>"+
 
                     "SELECT\n" +
                     "\n" +
                     "  ?term \n" +
-//                    " FROM NAMED <http://onto.fel.cvut.cz/ontologies/ufo/endurant>"                    +
-////                    "where{ GRAPH ?g {\n" +
                     "where{\n" +
                     "{\n" +
                     "      # all events\n" +
                     "      # j.0:A-390 j.0:hasChild+ ?c.\n" +
                     "      # ANS events\n" +
-                    "    ?term  rdfs:subClassOf+ u:trope.}\n" +
+                    "    ?term  rdfs:subClassOf+ u:Event.}\n" +
                     "      UNION {\n" +
                     "   ?term  rdfs:subClassOf+ u:Object.\n" +
                     " }"
@@ -79,9 +71,8 @@ public class sparqltests {
 
 
 
-                    +"OPTIONAL {  ?term rdfs:label ?label.} " +
-                    "}" ;
-            String queryStringTR = "PREFIX search:<"+ LuceneSailSchema.NAMESPACE+"> \n" +
+                    +" }" ;
+            String queryStringu = "PREFIX search:<"+ LuceneSailSchema.NAMESPACE+"> \n" +
                     "PREFIX t: <http://onto.fel.cvut.cz/ontologies/aviation-safety/>"+
                     "PREFIX ufo: <http://onto.fel.cvut.cz/ontologies/ufo/>"+
                     "PREFIX benchmark:<http://krizik.felk.cvut.cz/ontologies/benchmark/>"+
@@ -90,40 +81,31 @@ public class sparqltests {
                     "\n" +
                     "  ?term \n" +
                     " FROM NAMED <http://onto.fel.cvut.cz/ontologies/ufo/endurant>"                    +
-                    "where{ GRAPH ?g {\n" +
+                    "where{ GRAPH ?g\n" +
                     "\n" +
 
-                    "  {benchmark:Person-1000344628 ufo:has_trope ?term.\n" +
-                    "} UNION"+
-                    " { benchmark:Person-1009237217 ufo:has_trope ?term.\n" +
-                    "} }  }\n"
-                   ;
+                    "  {benchmark:Person-100043680 ufo:has_trope ?term.\n" +
 
-            String queryStringU = "PREFIX search:<"+ LuceneSailSchema.NAMESPACE+"> \n" +
+                    "} }  \n"
+                    ;
+            String queryString = "PREFIX search:<"+ LuceneSailSchema.NAMESPACE+"> \n" +
                     "PREFIX t: <http://onto.fel.cvut.cz/ontologies/aviation-safety/>"+
                     "PREFIX ufo: <http://onto.fel.cvut.cz/ontologies/ufo/>"+
                     "PREFIX benchmark:<http://krizik.felk.cvut.cz/ontologies/benchmark/>"+
-                    "PREFIX rdf: <http://www.w3.org/2000/01/rdf-schema#label>"+
 
-                    "SELECT DISTINCT\n" +
+                    "SELECT\n" +
                     "\n" +
-                    "  ?term ?label \n" +
+                    "  ?term ?event \n" +
                     " FROM NAMED <http://onto.fel.cvut.cz/ontologies/ufo/perdurant>"                    +
-                    "where{ GRAPH ?g {\n" +
+                    "where{ GRAPH ?g\n" +
                     "\n" +
 
                     "  {?event ufo:has_participant ?term.\n" +
-                    "}" +
-                    //"FILTER(LANG(?label) = \"en\")"+
-                    "FILTER(LANG(?label) = \"en\")"+
-//                    " FILTER"+
-//                   " { ?event rdf:lable {Action1638849867\"@en}.}\n" +
-                    " } " +
-                    "}\n"
+
+                    "} }  \n"
                     ;
 
-
-            String queryStringtrope= "PREFIX search:<"+ LuceneSailSchema.NAMESPACE+"> \n" +
+            String queryStringd= "PREFIX search:<"+ LuceneSailSchema.NAMESPACE+"> \n" +
                     "PREFIX t: <http://onto.fel.cvut.cz/ontologies/aviation-safety/>"+
                     "PREFIX ufo: <http://onto.fel.cvut.cz/ontologies/ufo/>"+
                     "PREFIX benchmark:<http://krizik.felk.cvut.cz/ontologies/benchmark/>"+
@@ -136,33 +118,28 @@ public class sparqltests {
                     "where{ GRAPH ?g\n" +
                     "\n" +
 
-                    "  {?term ufo:inheres_in aviation-safety:air_traffic_control_agent-i.\n" +
-                   // "  {?term ufo:is_participant_of aviation-safety:Ground_handling_operation-i.\n" +
+                  //  "  {?term ufo:inheres_in aviation-safety:air_traffic_control_agent-i.\n" +
+                    "  {?term ufo:is_participant_of aviation-safety:Ground_handling_operation-i.\n" +
 
                     "} }  \n"
                     ;
 
-            String queryStringp= "PREFIX search:<"+ LuceneSailSchema.NAMESPACE+"> \n" +
+            String queryStringj= "PREFIX search:<"+ LuceneSailSchema.NAMESPACE+"> \n" +
                     "PREFIX aviation-safety: <http://onto.fel.cvut.cz/ontologies/aviation-safety/>"+
                     "PREFIX ufo: <http://onto.fel.cvut.cz/ontologies/ufo/>"+
                     "PREFIX benchmark:<http://krizik.felk.cvut.cz/ontologies/benchmark/>"+
 
                     "SELECT\n" +
                     "\n" +
-                    //"  ?event ?subEvent \n" +
-                   "(COUNT(*) AS ?count)"+
-                  //  "  ?event ?subEvent \n" +
-                  // " FROM NAMED <http://onto.fel.cvut.cz/ontologies/ufo/perdurant>"+
-           " FROM NAMED <http://onto.fel.cvut.cz/ontologies/ufo/endurant>" +
+                    "  ?term \n" +
+                    " FROM NAMED <http://onto.fel.cvut.cz/ontologies/ufo/perdurant>"                    +
                     "where{ GRAPH ?g\n" +
                     "\n" +
-                   // "  {?term ufo:is_part_of aviation-safety:flight-i.\n" +
-                    //" ?term ufo:is_performed_by aviation-safety:Cabin_crew-i.\n" +
-                    "{?event  ufo:has_trope ?subEvent"+
+                    "  {?term ufo:is_part_of aviation-safety:flight-i.\n" +
+                   // " {?term ufo:is_performed_by aviation-safety:Cabin_crew-i.\n" +
+                  //  "{<http://onto.fel.cvut.cz/ontologies/2014/ECCAIRS_Aviation_1.3.0.12/eccairs-events-390#category_2060000> ufo:has_participant ?term.\n"+
 
                     "} }  \n"
-                   // "GROUP BY ?count"
-
                     ;
 
             String queryStringwithout = "PREFIX search:<"+ LuceneSailSchema.NAMESPACE+"> \n" +
@@ -214,7 +191,7 @@ public class sparqltests {
 //                    }
 //                }
 //            }
-            final List<Literal> allResults = new ArrayList<Literal> ();
+            final List<Literal> allResults = new ArrayList<Literal>();
 
             List<BindingSet> tuples = new ArrayList<BindingSet>();
 
@@ -279,15 +256,16 @@ public class sparqltests {
 ////                    for (Binding binding : bindings) {
                     //allResults.add((Literal)bindings.getBinding(variableName).getValue());
                     tuples.add(result.next());
-                  //  long t2 = System.currentTimeMillis();
+                    //  long t2 = System.currentTimeMillis();
 
-                   // System.out.println (" testtuples " + tuples + ": " );
+                    // System.out.println (" testtuples " + tuples + ": " );
                     // }
                     //long t2 = System.currentTimeMillis();
-                   // System.out.println("totals time :" + (t2 - t1) + "ms");
+                    // System.out.println("totals time :" + (t2 - t1) + "ms");
                 }
 
 //
+                System.out.println("RESULT");
                 long t2 = System.currentTimeMillis();
                 System.out.println("totals time :" + (t2 - t1) + "ms");
                 System.out.println (" tuples " + tuples + ": " );
@@ -310,4 +288,3 @@ public class sparqltests {
         }
     }
 }
-

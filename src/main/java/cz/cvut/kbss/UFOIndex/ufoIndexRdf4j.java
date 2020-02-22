@@ -36,7 +36,9 @@ public class ufoIndexRdf4j {
             // String sesameServer1 = in.next("http://localhost:8080/rdf4j-server");
             // String repositoryID1= in.next("test5");
             String sesameServer ="http://localhost:8080/rdf4j-server";
-            String repositoryID ="test1";
+            //String sesameServer ="http://localhost:7200/";
+           // String repositoryID ="aviation-safety";
+            String repositoryID ="generate";
             //  String serverUrl = "http://localhost:8080/openrdf-sesame";
             // RemoteRepositoryManager manager = new RemoteRepositoryManager(sesameServer);
             //manager.initialize();
@@ -57,7 +59,7 @@ public class ufoIndexRdf4j {
                 System.out.println("UFO CONCEPTS");
                 IRI aviationisSubcategoryOf = f.createIRI("http://onto.fel.cvut.cz/ontologies/aviationisSubcategoryOf");
                 IRI endurant = f.createIRI("http://onto.fel.cvut.cz/ontologies/ufo/endurant");
-                IRI context = f.createIRI("http://onto.fel.cvut.cz/ontologies/ufo/context");
+                IRI context = f.createIRI("http://onto.fel.cvut.cz/ontologies/ufo/endurant");
                 IRI Object = f.createIRI("http://onto.fel.cvut.cz/ontologies/ufo/Object");
                 IRI Agent = f.createIRI("http://onto.fel.cvut.cz/ontologies/ufo/Agent");
                 IRI Trope = f.createIRI("http://onto.fel.cvut.cz/ontologies/ufo/Trope");
@@ -69,7 +71,7 @@ public class ufoIndexRdf4j {
                 IRI has_object_part = f.createIRI("http://onto.fel.cvut.cz/ontologies/ufo/has_object_part");
                 IRI is_object_part_of = f.createIRI("http://onto.fel.cvut.cz/ontologies/ufo/is_object_part_of");
                 IRI has_part = f.createIRI("http://onto.fel.cvut.cz/ontologies/ufo/ufo:has_part");
-                IRI has_trope = f.createIRI("http://onto.fel.cvut.cz/ontologies/ufo/ufo:has_trope");
+                IRI has_trope = f.createIRI("http://onto.fel.cvut.cz/ontologies/ufo/has_trope");
                 IRI performs = f.createIRI("http://onto.fel.cvut.cz/ontologies/ufo/ufo:performs");
                 IRI Disposition = f.createIRI("http://onto.fel.cvut.cz/ontologies/ufo/ufo:Disposition");
                 IRI is_manifested_by = f.createIRI("http://onto.fel.cvut.cz/ontologies/ufo/ufo:is_manifested_by");
@@ -134,7 +136,7 @@ public class ufoIndexRdf4j {
                 while (iter4.hasNext()) {
 
                     Statement st1 = iter4.next();
-                    System.out.println("iter4" + st1);
+                 //   System.out.println("iter4" + st1);
                     connection.add(st1, context);
                     //  connection.add(st1, context);
                 }
@@ -182,8 +184,8 @@ public class ufoIndexRdf4j {
 
                     Statement st1 = iter10.next();
                     //logger.info ("like5"+st1);
-                    System.out.println("iter10" + st1);
-                    // connection.add(st1, context);
+                    //System.out.println("iter10" + st1);
+                    connection.add(st1, context);
                     //  connection.add(st1, context);
                 }
                 while (iter11.hasNext()) {
@@ -379,6 +381,9 @@ public class ufoIndexRdf4j {
                 IRI Fact = f.createIRI("http://onto.fel.cvut.cz/ontologies/ufo/Fact");
                 //IRI is_snapshot_of = f.createIRI ("http://onto.fel.cvut.cz/ontologies/ufo/is_snapshot_of");
                 IRI Action = f.createIRI("http://onto.fel.cvut.cz/ontologies/ufo/Action");
+                IRI has_event_part = f.createIRI("http://onto.fel.cvut.cz/ontologies/ufo/has_event_part");
+                //IRI Action = f.createIRI("http://onto.fel.cvut.cz/ontologies/ufo/Event");
+
                 /**
                  *  iterate UFO Prerdurant Concepts.
                  */
@@ -405,8 +410,10 @@ public class ufoIndexRdf4j {
                 Iteration<? extends Statement, RepositoryException> iter69 = connection.getStatements(null, is_snapshot_of, null);
                 Iteration<? extends Statement, RepositoryException> iter70 = connection.getStatements(null, is_performed_by, null);
                 Iteration<? extends Statement, RepositoryException> iter71 = connection.getStatements(null, is_event_part_of, null);
+
                 Iteration<? extends Statement, RepositoryException> iter72 = connection.getStatements(null, activates, null);
 
+                Iteration<? extends Statement, RepositoryException> iter73 = connection.getStatements(null,  has_event_part, null);
 
 // aviation safety Properties
                 IRI Occurence = f.createIRI("http://onto.fel.cvut.cz/ontologies/aviation-safety/Occurence");
