@@ -8,6 +8,8 @@
     </JAVADOC>
     <SOURCES>
       <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/rdf4j/rdf4j-sail-federation/2.4.1/rdf4j-sail-federation-2.4.1-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../data generator/rdf4j_provider.zip!/rdf4j_provider/src/main/java" />
+      <root url="jar://$PROJECT_DIR$/../../data generator/rdf4j_provider.zip!/rdf4j_provider/src/test/java" />
     </SOURCES>
   </library>
 </component>

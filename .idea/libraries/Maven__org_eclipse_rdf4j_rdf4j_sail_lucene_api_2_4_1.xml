@@ -8,6 +8,14 @@
     </JAVADOC>
     <SOURCES>
       <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/rdf4j/rdf4j-sail-lucene-api/2.4.1/rdf4j-sail-lucene-api-2.4.1-sources.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../data generator" />
+      <root url="file://$PROJECT_DIR$/../../data generator/exampe" />
+      <root url="file://$PROJECT_DIR$/../../data generator/model/ufomodel/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../../data generator/rdf4j_provider/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../../data generator/rdf4j_provider/src/test/java" />
+      <root url="jar://$PROJECT_DIR$/../../data generator/rdf4j_provider.zip!/rdf4j_provider/src/main/java" />
+      <root url="jar://$PROJECT_DIR$/../../data generator/rdf4j_provider.zip!/rdf4j_provider/src/test/java" />
     </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/../../data generator" recursive="false" type="SOURCES" />
   </library>
 </component>

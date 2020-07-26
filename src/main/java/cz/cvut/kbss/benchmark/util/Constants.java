@@ -7,15 +7,15 @@ public class Constants {
     /**
      * Number of items of one kind to use in one round.
      */
-    public static final int ITEM_COUNT = 100;
+    public static final int ITEM_COUNT =9000;
 
-    public static final int MAX_SEVERITY = 1;//10
+    public static final int MAX_SEVERITY = 2;//10
 
     public static final int ATTACHMENT_COUNT = 3;
-    public static final int Participants_COUNT = 3;
+    public static final int Participants_COUNT =4;
 
     public static final int MAX_CHILD_EVENTS = 2;
-    public static final int MAX_tropes = 3;
+    public static final int MAX_tropes =3;
 
     public static final int MAX_EVENT_DEPTH = 2;
 

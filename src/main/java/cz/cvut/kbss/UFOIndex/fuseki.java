@@ -1,17 +1,19 @@
 package cz.cvut.kbss.UFOIndex;
 
 import org.apache.jena.query.*;
-import org.apache.jena.rdf.model.RDFNode;
 import org.apache.log4j.Logger;
+import org.eclipse.rdf4j.query.BindingSet;
 import org.eclipse.rdf4j.sail.lucene.LuceneSailSchema;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class fuseki {
     public static void main(String[] args)
             throws IOException {
         Logger logger = Logger.getLogger(sparqltests.class);
-        String serviceURI = "http://localhost:3030/aviation-safety";
+        String serviceURI = "http://localhost:3030/ufo5";
         //"http://localhost:3030/ds";
         try{
             System.out.println (" neej");
@@ -20,8 +22,25 @@ public class fuseki {
             accessor = factory.createHTTP(serviceURI);
 
             String sparqlEndpoint = "http://localhost:3030//aviation-safety/query";
-
-            String queryString= "PREFIX search:<"+ LuceneSailSchema.NAMESPACE+"> \n" +
+            String queryStringoi=  "PREFIX search:<"+ LuceneSailSchema.NAMESPACE+"> \n" +
+                    "PREFIX t: <http://onto.fel.cvut.cz/ontologies/aviation-safety/>"+
+                    "PREFIX ufo: <http://onto.fel.cvut.cz/ontologies/ufo/>"+
+                    "PREFIX benchmark:<http://krizik.felk.cvut.cz/ontologies/benchmark/>"+
+//"SELECT DISTINCT ?term  FROM NAMED \n" +
+//                    "<http://onto.fel.cvut.cz/ontologies/ufo/endurant>  \n" +
+//                    "WHERE {GRAPH ?g {{benchmark:Person-1003094006 ufo:has_trope ?term}\n" +
+//                    "UNION {benchmark:Person-1015104543 ufo:has_trope ?term}}}"
+                    "  SELECT (count (?event) as ?num)?event ?term  " +
+                    "FROM NAMED <http://localhost:3030/mil/data/perdurant>"+
+//                    "FROM NAMED <http://onto.fel.cvut.cz/ontologies/ufo/endurant>"+
+                    "WHERE {GRAPH ?g {{?event ufo:has_participant ?term" +
+                    "}\n" +
+                    "OPTIONAL { ?term rdf:label ?label.}\n" +
+                    "}}" +
+                    "GROUP BY ?event ?term " +
+                    ""
+                    ;
+            String queryStringc= "PREFIX search:<"+ LuceneSailSchema.NAMESPACE+"> \n" +
                     "PREFIX t: <http://onto.fel.cvut.cz/ontologies/aviation-safety/>"+
                     "PREFIX ufo: <http://onto.fel.cvut.cz/ontologies/ufo/>"+
                     "PREFIX benchmark:<http://krizik.felk.cvut.cz/ontologies/benchmark/>"+
@@ -81,7 +100,7 @@ public class fuseki {
 
                     "} }  \n"
                     ;
-            String queryStringtest=
+            String queryString=
                     "PREFIX t: <http://onto.fel.cvut.cz/ontologies/aviation-safety/>"+
                     "PREFIX ufo: <http://onto.fel.cvut.cz/ontologies/ufo/>"+
                     "PREFIX benchmark:<http://krizik.felk.cvut.cz/ontologies/benchmark/>"+
@@ -93,7 +112,7 @@ public class fuseki {
                     "where{ GRAPH ?g\n" +
                     "\n" +
 
-                    "  {benchmark:Person-1000344628 ufo:has_trope ?term.\n" +
+                    "  {benchmark:Person-1068862083 ufo:has_trope ?term.\n" +
 
                     "} }  \n"
                     ;
@@ -102,11 +121,24 @@ public class fuseki {
                     queryString);
             long t1 = System.currentTimeMillis();
             ResultSet results = q.execSelect();
+
+            List<BindingSet> tuples = new ArrayList<BindingSet>();
             long t2 = System.currentTimeMillis();
             System.out.println("totals" +
                     " time :" + (t2 - t1) + "ms");
             ResultSetFormatter.out(System.out, results);
             System.out.println("test");
+            while (results.hasNext ()) {
+
+
+            tuples.add((BindingSet) results.nextSolution());
+            //  long t2 = System.currentTimeMillis();
+
+            // System.out.println (" testtuples " + tuples + ": " );
+            // }
+            //long t2 = System.currentTimeMillis();
+            // System.out.println("totals time :" + (t2 - t1) + "ms");
+        }
 //            while (results.hasNext()) {
 //                QuerySolution soln = results.nextSolution();
 //                RDFNode x = soln.get("x");

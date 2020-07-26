@@ -12,7 +12,6 @@ import org.eclipse.rdf4j.repository.RepositoryException;
 import org.eclipse.rdf4j.repository.http.HTTPRepository;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 /**
  * Created by jana on 10/31/2018.
@@ -38,7 +37,7 @@ public class ufoIndexRdf4j {
             String sesameServer ="http://localhost:8080/rdf4j-server";
             //String sesameServer ="http://localhost:7200/";
            // String repositoryID ="aviation-safety";
-            String repositoryID ="generate";
+            String repositoryID ="mil10";
             //  String serverUrl = "http://localhost:8080/openrdf-sesame";
             // RemoteRepositoryManager manager = new RemoteRepositoryManager(sesameServer);
             //manager.initialize();
