@@ -24,14 +24,14 @@ public class sparqltests {
     public static void main(String[] args)
             throws IOException
     { Logger logger = Logger.getLogger(sparqltests.class);
-//        String sesameServer = "http://localhost:8080/rdf4j-server";
+       // String sesameServer = "http://localhost:8080/rdf4j-server";
       String sesameServer = "http://localhost:7200";
 //       String sesameServer = "http://localhost:3030";
         //
-//        String repositoryID = "aviation-safety";
+        //String repositoryID = "aviation-safety";
        //
-       String repositoryID = "mil10";
-//        String repositoryID = "ufo5oo";
+      String repositoryID = "csat-onto";
+       // String repositoryID = "ufo5oo";
 
         try {
             //  String serverUrl = "http://localhost:8080/openrdf-sesame";

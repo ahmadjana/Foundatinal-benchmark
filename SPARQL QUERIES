@@ -1,0 +1,172 @@
+### SPARQL QUERIES FOR FOUNDATIONAL PATTERNS
+1- Who participates in an event?
+ SELECT DISTINCT ?participations  ?event
+FROM NAMED ufo:perdurant
+WHERE {GRAPH ?g {
+   ?participations  ufo:is-participant-of ?event}
+}
+2- What are the object’s parts?
+ SELECT DISTINCT ?parts ?object
+FROM NAMED ufo:endurant
+WHERE {GRAPH ?g {?object ufo:has-object-part ?parts} }
+
+3- What are the event’s parts?
+ SELECT DISTINCT ?parts ?event
+FROM NAMED ufo:perdurant
+WHERE {GRAPH ?g {?event ufo:has-event-part ?parts} }
+
+4- What does an event bring about?
+ SELECT DISTINCT ?situation  ?event
+FROM NAMED ufo:perdurant
+WHERE {GRAPH ?g {?event ufo:bringsAbout ?situation} }
+
+5- How an event is triggered?
+ SELECT DISTINCT ?situation  ?event
+FROM NAMED ufo:perdurant
+WHERE {GRAPH ?g {?situation  ufo:triggers ?event} }
+
+6- What do situations activate?
+ SELECT DISTINCT ?disposition  ?situations
+FROM NAMED ufo:endurant
+WHERE {GRAPH ?g { ?situation  ufo:activates ?disposition } }
+
+7- What are the factors of an event?
+ SELECT DISTINCT ?disposition  ?event
+FROM NAMED ufo:perdurant
+WHERE {GRAPH ?g { ?event  ufo:is-manifestation-of ?disposition } }
+
+8- What does an agent perform?
+ SELECT DISTINCT ?Action ?agent
+FROM NAMED ufo:endurant
+WHERE {GRAPH ?g { ?agent  ufo:performs ?Action } }
+
+9-  What are the tropes (properties) of an object?
+ SELECT DISTINCT ?trope  ?object
+FROM NAMED ufo:endurant
+WHERE {GRAPH ?g {?object  ufo:has-trope ?trope } }
+
+10- What is the situation that change an event ?
+ SELECT DISTINCT ?situation  ?event
+FROM NAMED ufo:perdurant
+WHERE {GRAPH ?g { ?event  ufo:has-pre-situation  ?situation } }
+
+11- What is the resulting situation of a an event?
+  SELECT DISTINCT ?situation  ?event
+FROM NAMED ufo:perdurant
+WHERE {GRAPH ?g { ?event  ufo:has-post-situation  ?situation } }
+
+12- When did an event start?
+ SELECT DISTINCT ?point ?event
+FROM NAMED ufo:perdurant
+WHERE {GRAPH ?g {?event  ufo:has-begin-point ?point } }
+
+13- When did an event finish?
+ SELECT DISTINCT ?point ?event
+FROM NAMED ufo:perdurant
+WHERE {GRAPH ?g { ?event  ufo:has-end-point ?point } }
+
+14- What is directly cause an event?
+ SELECT DISTINCT ?event1 ?event2
+FROM NAMED ufo:perdurant
+WHERE {GRAPH ?g { ?event1  ufo:directly-causes ?event1 } }
+
+15-What are the actions that agents perform?
+ SELECT DISTINCT ?action ?agent
+FROM NAMED ufo:perdurant
+WHERE {GRAPH ?g { ?agent  ufo:performs ?action } }
+
+### SPARQL QUERIES EXAMPLES FOR GENERATED DATASETS:
+
+Q1: What are the tropes (properties) for a  (Person-1000344628 ) and Person-1009237217?
+SELECT DISTINCT ?trope1 ?trope2
+FROM NAMED
+ufo:endurant
+WHERE {GRAPH ?g {{benchmark:Person-1000344628 ufo:has-trope ?trope1}
+UNION {benchmark:Person-1009237217 ufo:has-trope ?trope2}}}
+
+Q2: Select participants of all events.
+SELECT ?events ?participants ?label  FROM NAMED ufo:perdurant
+WHERE {GRAPH ?g {{?events ufo:has-participant ?participants}
+OPTIONAL {?participants rdf:label ?label.}
+}} GROUP BY ?events ?participants ?label
+
+Q3: What are the parts of an Event-1453752566?
+SELECT DISTINCT ?part
+FROM NAMED ufo:perdurant
+WHERE {GRAPH ?g {benchmark:Event1670269156 ufo:has-part ?part} }
+
+Q4: Select all actions that have (Person-444525854) as a participant with all properties of this person
+SELECT DISTINCT ?trope  ?action
+FROM NAMED ufo:perdurant
+FROM NAMED ufo:endurant
+WHERE { GRAPH ?graph{ {?action ufo:has-participant benchmark:Person-444525854}
+UNION{
+benchmark:Person-444525854 ufo:has-trope ?trope}}}
+
+SPARQL QUERIES EXAMPLES FOR AVIATION SAFETY ONTOLOGY DATASETS:
+Q1: What are the tropes (properties) that inhere in the air traffic control agent?
+SELECT DISTINCT ?trope
+FROM NAMED ufo:endurant
+WHERE {GRAPH ?g {{  ?trope ufo:inheres-in aviation-safety:air_traffic_control_agent}
+}}
+
+Q2: what are the  Participants of a Damage  event?
+SELECT DISTINCT ?Participants
+FROM NAMED ufo:perdurant
+WHERE {GRAPH ?g {aviation-safety:Damage_manifestation ufo:has-participant ?Participants} }
+
+Q3: What are the parts of a specific  Flight?
+SELECT DISTINCT ?part
+FROM NAMED ufo:perdurant
+WHERE {GRAPH ?g {?part ufo:is-part-of aviation-safety:Fligt-i} }
+
+Q4: Who performs Ground handling operation-i?
+SELECT DISTINCT ?agent
+FROM NAMED ufo:endurant
+WHERE {GRAPH ?g {?agent ufo:performs aviation-safety:Ground_handling_operation-i} }
+
+Q5: Select everyone that performs actions in aviation domain and filter all participating relation?
+SELECT ?term
+FROM NAMED ufo:perdurant
+ WHERE {GRAPH ?g {
+ ?action ufo:is-performed-by  ?agent
+FILTER (
+   NOT EXISTS {
+     ?action ufo:has-participant ?agent
+       }
+  )
+     }}
+
+ Q6: What are the parts of aircraft-i and in which event  this object participates?
+ SELECT DISTINCT ?part ?event
+FROM NAMED ufo:endurant
+WHERE {GRAPH ?g {?part ufo:is-object-part-of aviation-safety:aircraft-i.
+ aviation-safety:Aircraft-i  ufo:is-participant-of ?event
+} }
+
+## SPARQL QUERIES FOR COMPARING UDG Data VS Aviation Safety Existing Data
+Q1: Who are the participants in all event in each dataset?
+SELECT DISTINCT ?object  ?event
+FROM NAMED ufo:perdurant
+WHERE {GRAPH ?g {?event ufo:has-participant ?object} }
+
+Q2: What are all properties in each dataset and in which entity inhere?
+SELECT DISTINCT ?trope  ?entity
+FROM NAMED ufo:endurant
+WHERE {GRAPH ?g {?entity ufo:has-trope  ?trope} }
+
+Q3: What are all actions that happened in both datasets with their parts?
+ SELECT DISTINCT  ?event ?subEvent
+FROM NAMED ufo:perdurant
+WHERE {GRAPH ?g {?event ufo:has-part ?subEvent} }
+
+Q4: Who are the participants in all event in each dataset and what are the properties of every \textit{participant}?
+
+SELECT DISTINCT ?object  ?event ?trope FROM NAMED
+ufo:perdurant
+WHERE {{GRAPH ?g {?event ufo:has-participant ?object} }
+UNION{
+{GRAPH ?g {?object ufo:has-trope ?trope} }
+}}
+
+
