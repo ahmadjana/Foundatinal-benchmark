@@ -1,4 +1,4 @@
-Foundational benchmark:  is   generated  using Unified foundational ontology (UFO). 
+Foundational benchmark:  is   generated  using Unified foundational ontology (UFO)[1]. 
 
 We claim that a top-level ontology gives a common and recurring shape to both data and queries – our benchmark shows  how  an  index  based  on  OWL  representation  of  UFO implemented  invarious  triple  stores  can  help  making  SPARQL  evaluation  more  efficient  oversuch data.
 
@@ -9,6 +9,19 @@ It generates data based on a foundational ontology model, the main entities in t
 
 The generated data is stored in a triple stores and is indexed using UFO index [1].
 
+The users can use the Foundational benchmark to copare different stores w.r.t any data complaint with UFO or By geerting UFO based data with UFO data Generator:
+ - genetae data using UFO based-model data genetor or use existing UFO-based domain ontology
+ - persist generatd data into the triple store using JOPA library [3].
+ -  index the data by using UFO-index script.
+ - instantiate the foundationl patterns to query triple stores.
+ - run these queries against the triple stores and compare the results.
 
 
-[1] AHMAD, J., P. KŘEMEN a M. LEDVINKA. Optimization of Queries Based on Foundational Ontologies. In: Lecture Notes in Computer Science (including subseries Lecture Notes in Artificial Intelligence and Lecture Notes in Bioinformatics). OnTheMove Federated Conferences & Workshops, Valletta, 2018-10-22/2018-10-26. Springer International Publishing, 2018. s. 351-367. ISSN 0302-9743. ISBN 978-3-030-02670-7. DOI 10.1007/978-3-030-02671-4_22.
+
+
+[1] http://onto.fel.cvut.cz/ontologies/ufo.
+
+[2] AHMAD, J., P. KŘEMEN a M. LEDVINKA. Optimization of Queries Based on Foundational Ontologies. In: Lecture Notes in Computer Science (including subseries Lecture Notes in Artificial Intelligence and Lecture Notes in Bioinformatics). OnTheMove Federated Conferences & Workshops, Valletta, 2018-10-22/2018-10-26. Springer International Publishing, 2018. s. 351-367. ISSN 0302-9743. ISBN 978-3-030-02670-7. DOI 10.1007/978-3-030-02671-4_22.
+
+[3] https://github.com/kbss-cvut/jopa.
+
